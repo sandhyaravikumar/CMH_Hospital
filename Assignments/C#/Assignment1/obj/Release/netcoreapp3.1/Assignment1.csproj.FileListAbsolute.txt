@@ -1,0 +1,16 @@
+C:\Users\sandh\source\repos\Assignment1\Assignment1\bin\Release\netcoreapp3.1\Assignment1.exe
+C:\Users\sandh\source\repos\Assignment1\Assignment1\bin\Release\netcoreapp3.1\Assignment1.deps.json
+C:\Users\sandh\source\repos\Assignment1\Assignment1\bin\Release\netcoreapp3.1\Assignment1.runtimeconfig.json
+C:\Users\sandh\source\repos\Assignment1\Assignment1\bin\Release\netcoreapp3.1\Assignment1.runtimeconfig.dev.json
+C:\Users\sandh\source\repos\Assignment1\Assignment1\bin\Release\netcoreapp3.1\Assignment1.dll
+C:\Users\sandh\source\repos\Assignment1\Assignment1\bin\Release\netcoreapp3.1\Assignment1.pdb
+C:\Users\sandh\source\repos\Assignment1\Assignment1\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\sandh\source\repos\Assignment1\Assignment1\bin\Release\netcoreapp3.1\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\sandh\source\repos\Assignment1\Assignment1\obj\Release\netcoreapp3.1\Assignment1.csprojAssemblyReference.cache
+C:\Users\sandh\source\repos\Assignment1\Assignment1\obj\Release\netcoreapp3.1\Assignment1.AssemblyInfoInputs.cache
+C:\Users\sandh\source\repos\Assignment1\Assignment1\obj\Release\netcoreapp3.1\Assignment1.AssemblyInfo.cs
+C:\Users\sandh\source\repos\Assignment1\Assignment1\obj\Release\netcoreapp3.1\Assignment1.csproj.CoreCompileInputs.cache
+C:\Users\sandh\source\repos\Assignment1\Assignment1\obj\Release\netcoreapp3.1\Assignment1.csproj.CopyComplete
+C:\Users\sandh\source\repos\Assignment1\Assignment1\obj\Release\netcoreapp3.1\Assignment1.dll
+C:\Users\sandh\source\repos\Assignment1\Assignment1\obj\Release\netcoreapp3.1\Assignment1.pdb
+C:\Users\sandh\source\repos\Assignment1\Assignment1\obj\Release\netcoreapp3.1\Assignment1.genruntimeconfig.cache
