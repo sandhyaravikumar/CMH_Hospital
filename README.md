@@ -21,3 +21,22 @@ Patient 1: Name: XYZ Place: Coimbatore Age: 36
 Output:
 
 33.33% of patients are from Bangalore and  66.67 % are from other places
+
+## Requirements:
+
+.Net SDK 3.1
+
+### To build and run project
+
+1. Go to the project folder and execute following command in command prompt:
+
+```dotnet build```
+
+2. Run the project:
+
+```dotnet run```
+
+3. Run Test:
+
+```dotnet test```
+
