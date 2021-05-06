@@ -42,8 +42,6 @@ namespace CMH_APP
             return date;
         }
 
-
     }
-
 
 }

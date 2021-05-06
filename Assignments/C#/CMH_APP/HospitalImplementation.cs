@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CMH_APP
 {
-    
+
     public class HospitalImplementation : IHospital
     {
         private string name;
@@ -55,7 +55,6 @@ namespace CMH_APP
             List<Patient> listOfPatients = (List<Patient>)patient.Where(p => !p.GetLocation().Equals(this.location)).ToList();
             Count = Count + GetDateDetails(d1, d2, listOfPatients);
             return Count;
-
         }
 
         int GetDateDetails(DateTime d1, DateTime d2, List<Patient> listOfPatients)
