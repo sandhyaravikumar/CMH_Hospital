@@ -24,7 +24,7 @@ Output:
 
 ## Requirements:
 
-.Net SDK 3.1
+.Net SDK 5.0
 
 ### To build and run project
 
