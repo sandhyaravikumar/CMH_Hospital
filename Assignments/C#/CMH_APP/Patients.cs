@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace Assignment1
+namespace CMH_APP
 {
     public class Patients
     {
@@ -19,22 +21,22 @@ namespace Assignment1
             this.date = date;
         }
 
-        public string getName()
+        public string GetName()
         {
             return name;
         }
 
-        public string getLocation()
+        public string GetLocation()
         {
             return location;
         }
 
-        public int getAge()
+        public int GetAge()
         {
             return age;
         }
 
-        public DateTime getDate()
+        public DateTime GetDate()
         {
             return date;
         }
