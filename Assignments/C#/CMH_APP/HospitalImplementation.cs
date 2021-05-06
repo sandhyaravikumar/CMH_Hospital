@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CMH_APP
 {
-
     public class HospitalImplementation : IHospital
     {
         private string name;
         private Location location;
-        private List<Patient> patient = new List<Patient>();
+        private List<Patient> patients;
 
-        public HospitalImplementation(string name, Location location, List<Patient> patient)
+        public HospitalImplementation(string name, Location location)
         {
             this.name = name;
             this.location = location;
-            this.patient = patient;
+            patients = new List<Patient>();
         }
+
         public string GetName()
         {
             return name;
@@ -29,48 +27,37 @@ namespace CMH_APP
             return location;
         }
 
+        public void AddPatient(Patient p) => this.patients.Add(p);
 
-        public void AddPatient(Patient p) => this.patient.Add(p);
-
-        public double GetLocationPercentage(DateTime d1, DateTime d2)
+        public double GetPatientsDetailsBasedOnLocation(DateTime startDate, DateTime endDate)
         {
-            double local = GetBangalorePatient(d1, d2);
-            double outstation = GetoutsidePatient(d1, d2);
+            double local = GetLocalPatientCount(startDate, endDate);
+            double outstation = GetOutsidePatientCount(startDate, endDate);
 
             double totalpatient = local + outstation;
-            double banglorepercentage = (local / totalpatient * 100);
-            double finalpercentage = (double)Math.Round(banglorepercentage * 100) / 100;
+            double localpercentage = (local / totalpatient * 100);
+            double finalpercentage = (double)Math.Round(localpercentage * 100) / 100;
             return finalpercentage;
         }
 
-        int GetBangalorePatient(DateTime d1, DateTime d2)
+        int GetLocalPatientCount(DateTime startDate, DateTime endDate)
         {
-            List<Patient> listOfPatients = (List<Patient>)patient.Where(p => p.GetLocation().Equals(this.location)).ToList();
-            return GetDateDetails(d1, d2, listOfPatients);
+            ValidateDates(startDate, endDate);
+            List<Patient> listOfLocalPatients = patients.Where(p => p.GetLocation().Equals(this.location))
+                                                        .Where(p => p.GetDate() > startDate && p.GetDate() < endDate)
+                                                        .ToList();
+
+            return listOfLocalPatients.Count();
         }
 
-        int GetoutsidePatient(DateTime d1, DateTime d2)
+        int GetOutsidePatientCount(DateTime startDate, DateTime endDate)
         {
-            int Count = 0;
-            List<Patient> listOfPatients = (List<Patient>)patient.Where(p => !p.GetLocation().Equals(this.location)).ToList();
-            Count = Count + GetDateDetails(d1, d2, listOfPatients);
-            return Count;
+            return patients.Count() - GetLocalPatientCount(startDate, endDate);
         }
 
-        int GetDateDetails(DateTime d1, DateTime d2, List<Patient> listOfPatients)
+        private void ValidateDates(DateTime startDate, DateTime endDate)
         {
-            DateValidation(d1, d2);
-            if (listOfPatients != null)
-            {
-                List<Patient> finalpatient = (List<Patient>)listOfPatients.Where(p => p.GetDate() > d1 && p.GetDate() < d2).ToList();
-                return finalpatient.Count();
-            }
-            return 0;
-        }
-
-        private static void DateValidation(DateTime startdate, DateTime end)
-        {
-            if (startdate.CompareTo(end) > 0)
+            if (startDate.CompareTo(endDate) > 0)
             {
                 throw new Exception("Invalid date");
             }
@@ -82,4 +69,3 @@ namespace CMH_APP
         }
     }
 }
-

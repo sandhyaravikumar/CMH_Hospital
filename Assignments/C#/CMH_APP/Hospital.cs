@@ -9,7 +9,7 @@ namespace CMH_APP
     public interface IHospital
     {
         public void AddPatient(Patient p);
-        double GetLocationPercentage(DateTime d1, DateTime d2);
+        double GetPatientsDetailsBasedOnLocation(DateTime startDate, DateTime endDate);
     }
 
 }
