@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace CMH_APP
 {
-    public class Patients
+    public enum Location { Bangalore, Chennai, Pune }
+    public class Patient
     {
         private string name;
-        private string location;
+        private Location location;
         private int age;
         private DateTime date;
 
-        public void Patient(string name, string location, int age, DateTime date)
+        public void patient(string name, Location location, int age, DateTime date)
         {
             this.name = name;
             this.location = location;
@@ -26,7 +27,7 @@ namespace CMH_APP
             return name;
         }
 
-        public string GetLocation()
+        public Location GetLocation()
         {
             return location;
         }

@@ -6,30 +6,33 @@ using System.Threading.Tasks;
 
 namespace CMH_APP
 {
-    public class Hospital_Implementation: IHospital
+    
+    public class HospitalImplementation : IHospital
     {
         private string name;
-        private string location;
-        private List<Patients> patients = new List<Patients>();
+        private Location location;
+        private List<Patient> patient = new List<Patient>();
 
-        public Hospital_Implementation(string name, string locatn)
+        public HospitalImplementation(string name, Location location, List<Patient> patient)
         {
             this.name = name;
-            this.location = locatn;
+            this.location = location;
+            this.patient = patient;
         }
         public string GetName()
         {
             return name;
         }
 
-        public string GetLocation()
+        public Location GetLocation()
         {
             return location;
         }
 
-        public void Addpatients(Patients p) => this.patients.Add(p);
 
-        public double GetLocationpercentcentage(DateTime d1, DateTime d2)
+        public void AddPatient(Patient p) => this.patient.Add(p);
+
+        public double GetLocationPercentage(DateTime d1, DateTime d2)
         {
             double local = GetBangalorePatient(d1, d2);
             double outstation = GetoutsidePatient(d1, d2);
@@ -42,30 +45,26 @@ namespace CMH_APP
 
         int GetBangalorePatient(DateTime d1, DateTime d2)
         {
-
-
-            List<Patients> listOfPatients = (List<Patients>)patients.Where(p => p.GetLocation().Equals(this.location)).ToList();
+            List<Patient> listOfPatients = (List<Patient>)patient.Where(p => p.GetLocation().Equals(this.location)).ToList();
             return GetDateDetails(d1, d2, listOfPatients);
-
-
         }
 
         int GetoutsidePatient(DateTime d1, DateTime d2)
         {
             int Count = 0;
-            List<Patients> listOfPatients = (List<Patients>)patients.Where(p => !p.GetLocation().Equals(this.location)).ToList();
+            List<Patient> listOfPatients = (List<Patient>)patient.Where(p => !p.GetLocation().Equals(this.location)).ToList();
             Count = Count + GetDateDetails(d1, d2, listOfPatients);
             return Count;
 
         }
 
-        int GetDateDetails(DateTime d1, DateTime d2, List<Patients> listOfPatients)
+        int GetDateDetails(DateTime d1, DateTime d2, List<Patient> listOfPatients)
         {
             DateValidation(d1, d2);
             if (listOfPatients != null)
             {
-                List<Patients> finalpatnt = (List<Patients>)listOfPatients.Where(p => p.GetDate().CompareTo(d1) > 0 && p.GetDate().CompareTo(d2) < 0).ToList();
-                return finalpatnt.Count();
+                List<Patient> finalpatient = (List<Patient>)listOfPatients.Where(p => p.GetDate() > d1 && p.GetDate() < d2).ToList();
+                return finalpatient.Count();
             }
             return 0;
         }
@@ -74,8 +73,13 @@ namespace CMH_APP
         {
             if (startdate.CompareTo(end) > 0)
             {
-                throw new ArgumentException("Invalid date");
+                throw new Exception("Invalid date");
             }
+        }
+
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to Chinmaya Mission Hospital");
         }
     }
 }
