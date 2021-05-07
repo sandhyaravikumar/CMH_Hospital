@@ -26,33 +26,17 @@ namespace CMH_APP
         {
             return location;
         }
-
         public void AddPatient(Patient p) => this.patients.Add(p);
 
-        public double GetPatientsDetailsBasedOnLocation(DateTime startDate, DateTime endDate)
-        {
-            double local = GetLocalPatientCount(startDate, endDate);
-            double outstation = GetOutsidePatientCount(startDate, endDate);
 
-            double totalpatient = local + outstation;
-            double localpercentage = (local / totalpatient * 100);
-            double finalpercentage = (double)Math.Round(localpercentage * 100) / 100;
-            return finalpercentage;
-        }
-
-        int GetLocalPatientCount(DateTime startDate, DateTime endDate)
+        public List<Patient> PatientsWithinTheDateRange(DateTime startDate, DateTime endDate)
         {
             ValidateDates(startDate, endDate);
-            List<Patient> listOfLocalPatients = patients.Where(p => p.GetLocation().Equals(this.location))
-                                                        .Where(p => p.GetDate() > startDate && p.GetDate() < endDate)
-                                                        .ToList();
+            List<Patient> PatientsWithinTheDateRange = patients.Where(p => p.GetvisitingInfo()
+                                                               .Any(x => x.GetVisitDate() >= startDate && x.GetVisitDate() <= endDate))
+                                                               .ToList();
+            return PatientsWithinTheDateRange;
 
-            return listOfLocalPatients.Count();
-        }
-
-        int GetOutsidePatientCount(DateTime startDate, DateTime endDate)
-        {
-            return patients.Count() - GetLocalPatientCount(startDate, endDate);
         }
 
         private void ValidateDates(DateTime startDate, DateTime endDate)

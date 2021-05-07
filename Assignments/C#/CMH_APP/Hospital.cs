@@ -9,7 +9,7 @@ namespace CMH_APP
     public interface IHospital
     {
         public void AddPatient(Patient p);
-        double GetPatientsDetailsBasedOnLocation(DateTime startDate, DateTime endDate);
+        List<Patient> PatientsWithinTheDateRange(DateTime startDate, DateTime endDate);
     }
 
 }

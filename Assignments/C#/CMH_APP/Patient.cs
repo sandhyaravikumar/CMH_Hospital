@@ -12,14 +12,14 @@ namespace CMH_APP
         private string name;
         private Location location;
         private int age;
-        private DateTime date;
+        private List<Visit> visit;
 
-        public void patient(string name, Location location, int age, DateTime date)
+        public Patient(string name, Location location, int age, List<Visit> visit)
         {
             this.name = name;
             this.location = location;
             this.age = age;
-            this.date = date;
+            this.visit = visit;
         }
 
         public string GetName()
@@ -37,10 +37,11 @@ namespace CMH_APP
             return age;
         }
 
-        public DateTime GetDate()
+        public List<Visit> GetvisitingInfo()
         {
-            return date;
+            return visit;
         }
+
 
     }
 
