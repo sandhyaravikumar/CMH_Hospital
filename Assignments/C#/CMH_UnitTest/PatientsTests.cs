@@ -28,7 +28,6 @@ namespace CMH_UnitTest
             var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-1), "Doctor1") };
             var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor2") };
 
-
             Patient patient1 = new Patient("BangalorePatient1", Location.Bangalore, 15, Patient1VisitList);
             hospital.AddPatient(patient1);
 
@@ -37,12 +36,9 @@ namespace CMH_UnitTest
 
             long totalPatients = hospital.PatientsWithinTheDateRange(FromDate, ToDate).Count();
             long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
-            long OutPatients = hospital.GetOutsidePatientsCount(FromDate, ToDate);
 
             double LocalPatientPercentage = (localPatient * 100) / totalPatients;
-            double OutsidePatientPercentage = (OutPatients * 100) / totalPatients;
             double expectedPercentage = 100;
-
 
             Console.WriteLine($"{LocalPatientPercentage} % of patients are from Local and  No outside patients");
             Assert.AreEqual(expectedPercentage, LocalPatientPercentage, "Mismatch with patients data, Please check the data again");
@@ -58,21 +54,16 @@ namespace CMH_UnitTest
             var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-1), "Doctor1") };
             var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor2") };
 
-
             Patient patient1 = new Patient("ChennaiPatient", Location.Chennai, 11, Patient1VisitList);
             hospital.AddPatient(patient1);
 
             Patient patient2 = new Patient("PunePatient", Location.Pune, 11, Patient2VisitList);
             hospital.AddPatient(patient2);
 
-
             long totalPatients = hospital.PatientsWithinTheDateRange(FromDate, ToDate).Count();
             long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
-            long OutPatients = hospital.GetOutsidePatientsCount(FromDate, ToDate);
-
 
             double LocalPatientPercentage = (localPatient * 100) / totalPatients;
-            double OutsidePatientPercentage = (OutPatients * 100) / totalPatients;
             double expectedPercentage = 0;
 
             Console.WriteLine("No records of Local Patients");
@@ -80,7 +71,7 @@ namespace CMH_UnitTest
         }
 
         [TestMethod()]
-        public void AlllocationPatientsTest()
+        public void AllLocationPatientsTest()
         {
             DateTime FromDate = DateTime.Today.AddDays(-2);
             DateTime ToDate = DateTime.Today;
@@ -88,7 +79,6 @@ namespace CMH_UnitTest
             var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor1") };
             var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-1), "Doctor2") };
             var Patient3VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-2), "Doctor3") };
-
 
             Patient patient1 = new Patient("ChennaiPatient", Location.Chennai, 11, Patient1VisitList);
             hospital.AddPatient(patient1);
@@ -108,7 +98,7 @@ namespace CMH_UnitTest
             double expectedPercentage = 33;
 
 
-            Console.WriteLine($"Number of Local patients from {FromDate.ToString("MM/dd/yyyy")} to {ToDate.ToString("MM/dd/yyyy")} are {localPatient}");
+            Console.WriteLine($"Date: {FromDate.ToString("MM/dd/yyyy")} to {ToDate.ToString("MM/dd/yyyy")}\n Local Patients: {localPatient}% \n Outpatients: {OutsidePatientPercentage} %");
             Assert.AreEqual(expectedPercentage, LocalPatientPercentage, "Mismatch with patients data, Please check the data again");
         }
 

@@ -36,7 +36,6 @@ namespace CMH_APP
                                                                .Any(x => x.GetVisitDate() >= startDate && x.GetVisitDate() <= endDate))
                                                                .ToList();
             return PatientsWithinTheDateRange;
-
         }
 
         private void ValidateDates(DateTime startDate, DateTime endDate)
@@ -70,7 +69,6 @@ namespace CMH_APP
         public static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Chinmaya Mission Hospital");
-
         }
     }
 }
