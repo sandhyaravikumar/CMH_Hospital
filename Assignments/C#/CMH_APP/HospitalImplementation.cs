@@ -26,8 +26,8 @@ namespace CMH_APP
         {
             return location;
         }
-        public void AddPatient(Patient p) => this.patients.Add(p);
 
+        public void AddPatient(Patient p) => this.patients.Add(p);
 
         public List<Patient> PatientsWithinTheDateRange(DateTime startDate, DateTime endDate)
         {
@@ -47,9 +47,30 @@ namespace CMH_APP
             }
         }
 
+        public int PatientsWhoVisitedHospitalInRecentDays(int numberOfDays)
+        {
+            DateTime endDate = DateTime.Today;
+            DateTime startDate = endDate.AddDays(-numberOfDays);
+            return GetLocalPatientsCount(startDate, endDate);
+        }
+
+        public int GetLocalPatientsCount(DateTime startDate, DateTime endDate)
+        {
+            List<Patient> listOfLocalPatients = PatientsWithinTheDateRange(startDate, endDate)
+                                                .Where(p => p.GetLocation().Equals(this.location))
+                                                .ToList();
+            return listOfLocalPatients.Count();
+        }
+
+        public int GetOutsidePatientsCount(DateTime startDate, DateTime endDate)
+        {
+            return patients.Count() - GetLocalPatientsCount(startDate, endDate);
+        }
+
         public static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Chinmaya Mission Hospital");
+
         }
     }
 }

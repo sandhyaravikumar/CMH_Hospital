@@ -20,25 +20,24 @@ namespace CMH_UnitTest
         }
 
         [TestMethod()]
-        public void Local_Patients_Test()
+        public void LocalPatientsTest()
         {
-            DateTime FromDate = new DateTime(2021, 05, 02);
-            DateTime ToDate = new DateTime(2021, 05, 05);
+            DateTime FromDate = DateTime.Today.AddDays(-1);
+            DateTime ToDate = DateTime.Today;
 
-            var Patient1visitList = new List<Visit>() { new Visit(new DateTime(2021, 05, 02), "Doctor1") };
-            var Patient2VisitList = new List<Visit>() { new Visit(new DateTime(2021, 05, 03), "Doctor2") };
+            var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-1), "Doctor1") };
+            var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor2") };
 
 
-            Patient patient1 = new Patient("BBB", Location.Bangalore, 11, Patient1visitList);
+            Patient patient1 = new Patient("BangalorePatient1", Location.Bangalore, 15, Patient1VisitList);
             hospital.AddPatient(patient1);
 
-            Patient patient2 = new Patient("BBB", Location.Bangalore, 11, Patient2VisitList);
+            Patient patient2 = new Patient("BangalorePatient2", Location.Bangalore, 22, Patient2VisitList);
             hospital.AddPatient(patient2);
 
-            List<Patient> patients = hospital.PatientsWithinTheDateRange(FromDate, ToDate);
-            long totalPatients = patients.Count();
-            long localPatient = patients.Where(p => p.GetLocation().Equals(hospital.GetLocation())).Count();
-            long OutPatients = totalPatients - localPatient;
+            long totalPatients = hospital.PatientsWithinTheDateRange(FromDate, ToDate).Count();
+            long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
+            long OutPatients = hospital.GetOutsidePatientsCount(FromDate, ToDate);
 
             double LocalPatientPercentage = (localPatient * 100) / totalPatients;
             double OutsidePatientPercentage = (OutPatients * 100) / totalPatients;
@@ -51,26 +50,25 @@ namespace CMH_UnitTest
         }
 
         [TestMethod()]
-        public void Outstation_Patients_Test()
+        public void OutstationPatientsTest()
         {
-            DateTime FromDate = new DateTime(2021, 05, 02);
-            DateTime ToDate = new DateTime(2021, 05, 05);
+            DateTime FromDate = DateTime.Today.AddDays(-1);
+            DateTime ToDate = DateTime.Today;
 
-            var Patient1visitList = new List<Visit>() { new Visit(new DateTime(2021, 05, 02), "Doctor1") };
-            var Patient2VisitList = new List<Visit>() { new Visit(new DateTime(2021, 05, 03), "Doctor2") };
+            var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-1), "Doctor1") };
+            var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor2") };
 
 
-            Patient patient1 = new Patient("BBB", Location.Chennai, 11, Patient1visitList);
+            Patient patient1 = new Patient("ChennaiPatient", Location.Chennai, 11, Patient1VisitList);
             hospital.AddPatient(patient1);
 
-            Patient patient2 = new Patient("BBB", Location.Pune, 11, Patient2VisitList);
+            Patient patient2 = new Patient("PunePatient", Location.Pune, 11, Patient2VisitList);
             hospital.AddPatient(patient2);
 
 
-            List<Patient> patients = hospital.PatientsWithinTheDateRange(FromDate, ToDate);
-            long totalPatients = patients.Count();
-            long localPatient = patients.Where(p => p.GetLocation().Equals(hospital.GetLocation())).Count();
-            long OutPatients = totalPatients - localPatient;
+            long totalPatients = hospital.PatientsWithinTheDateRange(FromDate, ToDate).Count();
+            long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
+            long OutPatients = hospital.GetOutsidePatientsCount(FromDate, ToDate);
 
 
             double LocalPatientPercentage = (localPatient * 100) / totalPatients;
@@ -82,29 +80,28 @@ namespace CMH_UnitTest
         }
 
         [TestMethod()]
-        public void All_location_patients_test()
+        public void AlllocationPatientsTest()
         {
-            DateTime FromDate = new DateTime(2021, 05, 02);
-            DateTime ToDate = new DateTime(2021, 05, 05);
+            DateTime FromDate = DateTime.Today.AddDays(-2);
+            DateTime ToDate = DateTime.Today;
 
-            var Patient1visitList = new List<Visit>() { new Visit(new DateTime(2021, 05, 02), "Doctor1") };
-            var Patient2VisitList = new List<Visit>() { new Visit(new DateTime(2021, 05, 03), "Doctor2") };
-            var Patient3visitList = new List<Visit>() { new Visit(new DateTime(2021, 05, 04), "Doctor3") };
+            var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor1") };
+            var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-1), "Doctor2") };
+            var Patient3VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-2), "Doctor3") };
 
 
-            Patient patient1 = new Patient("CCC", Location.Chennai, 11, Patient1visitList);
+            Patient patient1 = new Patient("ChennaiPatient", Location.Chennai, 11, Patient1VisitList);
             hospital.AddPatient(patient1);
 
-            Patient patient2 = new Patient("PPP", Location.Pune, 11, Patient2VisitList);
+            Patient patient2 = new Patient("PunePatient", Location.Pune, 11, Patient2VisitList);
             hospital.AddPatient(patient2);
 
-            Patient patient3 = new Patient("BBB", Location.Bangalore, 11, Patient3visitList);
+            Patient patient3 = new Patient("BangalorePatient", Location.Bangalore, 11, Patient3VisitList);
             hospital.AddPatient(patient3);
 
-            List<Patient> patients = hospital.PatientsWithinTheDateRange(FromDate, ToDate);
-            long totalPatients = patients.Count();
-            long localPatient = patients.Where(p => p.GetLocation().Equals(hospital.GetLocation())).Count();
-            long OutPatients = totalPatients - localPatient;
+            long totalPatients = hospital.PatientsWithinTheDateRange(FromDate, ToDate).Count();
+            long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
+            long OutPatients = hospital.GetOutsidePatientsCount(FromDate, ToDate);
 
             double LocalPatientPercentage = (localPatient * 100) / totalPatients;
             double OutsidePatientPercentage = (OutPatients * 100) / totalPatients;
@@ -120,47 +117,60 @@ namespace CMH_UnitTest
 
         public void PatientWithMultipleVisit()
         {
-            DateTime FromDate = new DateTime(2021, 05, 02);
-            DateTime ToDate = new DateTime(2021, 05, 05);
+            DateTime FromDate = DateTime.Today.AddDays(-2);
+            DateTime ToDate = DateTime.Today;
 
-            var Patient1VisitList = new List<Visit>() { new Visit(new DateTime(2021, 05, 02), "Doctor1"), new Visit(new DateTime(2021, 05, 03), "Doctor1"), new Visit(new DateTime(2021, 05, 04), "Doctor1") };
+            var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor1"), new Visit(DateTime.Today, "Doctor1"), new Visit(DateTime.Today.AddDays(-1), "Doctor1") };
 
-            var Patient2VisitList = new List<Visit>() { new Visit(new DateTime(2021, 05, 03), "Doctor2"), new Visit(new DateTime(2021, 05, 02), "Doctor2") };
+            var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-2), "Doctor2"), new Visit(DateTime.Today.AddDays(-1), "Doctor2") };
 
-            Patient patient1 = new Patient("BBB", Location.Bangalore, 11, Patient1VisitList);
+            Patient patient1 = new Patient("PatientBangalore1", Location.Bangalore, 11, Patient1VisitList);
             hospital.AddPatient(patient1);
 
-            Patient patient2 = new Patient("BBB", Location.Bangalore, 21, Patient2VisitList);
+            Patient patient2 = new Patient("PatientBangalore2", Location.Bangalore, 21, Patient2VisitList);
             hospital.AddPatient(patient2);
 
-
-            List<Patient> patients = hospital.PatientsWithinTheDateRange(FromDate, ToDate);
-
-            long localPatient = patients.Where(p => p.GetLocation().Equals(hospital.GetLocation())).Count();
+            long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
 
             long expectedLocalPatientCount = 2;
 
             Console.WriteLine($"Number of Local patients from {FromDate.ToString("MM/dd/yyyy")} to {ToDate.ToString("MM/dd/yyyy")} are {localPatient}");
             Assert.AreEqual(expectedLocalPatientCount, localPatient, "Mismatch with patients data, Please check the data again");
         }
+
+        [TestMethod()]
+        public void PatientsWithinTheDateRange()
+        {
+            int numberOfDays = 3;
+
+            var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor1"), new Visit(DateTime.Today, "Doctor1"), new Visit(DateTime.Today.AddDays(-1), "Doctor1") };
+
+            var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-2), "Doctor2"), new Visit(DateTime.Today.AddDays(-1), "Doctor2") };
+
+            var Patient3VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor3")};
+
+            var Patient4VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor4")};
+
+            Patient patient1 = new Patient("ChennaiPatient1", Location.Chennai, 11, Patient1VisitList);
+            hospital.AddPatient(patient1);
+
+            Patient patient2 = new Patient("BangalorePatient1", Location.Bangalore, 21, Patient2VisitList);
+            hospital.AddPatient(patient2);
+
+            Patient patient3 = new Patient("PunePatient1", Location.Pune, 34, Patient3VisitList);
+            hospital.AddPatient(patient3);
+
+            Patient patient4 = new Patient("BangalorePatient2", Location.Bangalore, 55, Patient4VisitList);
+            hospital.AddPatient(patient4);
+
+            long localPatientWithinNDays = hospital.PatientsWhoVisitedHospitalInRecentDays(numberOfDays);
+
+            double expectedLocalPatientCount = 2;
+
+            Console.WriteLine($"Number of Local patients for last {numberOfDays} days are {localPatientWithinNDays}");
+            Assert.AreEqual(expectedLocalPatientCount, localPatientWithinNDays, "Mismatch with patients data, Please check the data again");
+        }
+
     }
 }
 
-        //[TestMethod()]
-        //public void PatientsWithinTheDateRange()
-        //{
-        //    DateTime FromDate = new DateTime(2021, 05, 02);
-        //    DateTime ToDate = new DateTime(2021, 05, 05);
-
-
-
-        //    List<Patient> patients = hospital.PatientsWithinTheDateRange(FromDate, ToDate);
-        //    long localPatient = patients.Where(p => p.GetLocation().Equals(hospital.GetLocation())).Count();
-
-        //    ////long expectedLocalPatientCount = 3;
-
-        //    //Console.WriteLine($"Number of Local patients from {FromDate.ToString("MM/dd/yyyy")} to {ToDate.ToString("MM/dd/yyyy")} are {localPatient}");
-        //    //Assert.AreEqual(expectedLocalPatientCount, localPatient, "Mismatch with patients data, Please check the data again");
-        //}
-
- 
