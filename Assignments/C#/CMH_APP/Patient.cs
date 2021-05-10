@@ -11,12 +11,12 @@ namespace CMH_APP
         private int age;
         private List<Visit> visit;
 
-        public Patient(string name, Location location, int age, List<Visit> visit)
+        public Patient(string name, Location location, int age)
         {
             this.name = name;
             this.location = location;
             this.age = age;
-            this.visit = visit;
+            visit = new List<Visit>();
         }
 
         public string GetName()
@@ -33,13 +33,15 @@ namespace CMH_APP
         {
             return age;
         }
-
         public List<Visit> GetvisitingInfo()
         {
             return visit;
         }
 
-
+        public void AddVisit(Visit v)
+        {
+            visit.Add(v);
+        }
     }
 
 }

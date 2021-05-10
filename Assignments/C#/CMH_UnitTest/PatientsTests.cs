@@ -25,14 +25,17 @@ namespace CMH_UnitTest
             DateTime FromDate = DateTime.Today.AddDays(-1);
             DateTime ToDate = DateTime.Today;
 
-            var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-1), "Doctor1") };
-            var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor2") };
 
-            Patient patient1 = new Patient("BangalorePatient1", Location.Bangalore, 15, Patient1VisitList);
+            Visit Patient1Visit = new Visit(DateTime.Today.AddDays(-1), "Doctor1");
+            Visit Patient2Visit = new Visit(DateTime.Today, "Doctor2");
+
+            Patient patient1 = new Patient("BangalorePatient1", Location.Bangalore, 15);
             hospital.AddPatient(patient1);
+            patient1.AddVisit(Patient1Visit);
 
-            Patient patient2 = new Patient("BangalorePatient2", Location.Bangalore, 22, Patient2VisitList);
+            Patient patient2 = new Patient("BangalorePatient2", Location.Bangalore, 22);
             hospital.AddPatient(patient2);
+            patient2.AddVisit(Patient2Visit);
 
             long totalPatients = hospital.PatientsWithinTheDateRange(FromDate, ToDate).Count();
             long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
@@ -51,14 +54,16 @@ namespace CMH_UnitTest
             DateTime FromDate = DateTime.Today.AddDays(-1);
             DateTime ToDate = DateTime.Today;
 
-            var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-1), "Doctor1") };
-            var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor2") };
+            Visit Patient1Visit = new Visit(DateTime.Today.AddDays(-1), "Doctor1");
+            Visit Patient2Visit = new Visit(DateTime.Today, "Doctor2");
 
-            Patient patient1 = new Patient("ChennaiPatient", Location.Chennai, 11, Patient1VisitList);
+            Patient patient1 = new Patient("ChennaiPatient", Location.Chennai, 11);
             hospital.AddPatient(patient1);
+            patient1.AddVisit(Patient1Visit);
 
-            Patient patient2 = new Patient("PunePatient", Location.Pune, 11, Patient2VisitList);
+            Patient patient2 = new Patient("PunePatient", Location.Pune, 11);
             hospital.AddPatient(patient2);
+            patient2.AddVisit(Patient2Visit);
 
             long totalPatients = hospital.PatientsWithinTheDateRange(FromDate, ToDate).Count();
             long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
@@ -76,18 +81,21 @@ namespace CMH_UnitTest
             DateTime FromDate = DateTime.Today.AddDays(-2);
             DateTime ToDate = DateTime.Today;
 
-            var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor1") };
-            var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-1), "Doctor2") };
-            var Patient3VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-2), "Doctor3") };
+            Visit Patient1Visit = new Visit(DateTime.Today, "Doctor1") ;
+            Visit Patient2Visit = new Visit(DateTime.Today.AddDays(-1), "Doctor2") ;
+            Visit Patient3Visit = new Visit(DateTime.Today.AddDays(-2), "Doctor3") ;
 
-            Patient patient1 = new Patient("ChennaiPatient", Location.Chennai, 11, Patient1VisitList);
+            Patient patient1 = new Patient("ChennaiPatient", Location.Chennai, 11);
             hospital.AddPatient(patient1);
+            patient1.AddVisit(Patient1Visit);
 
-            Patient patient2 = new Patient("PunePatient", Location.Pune, 11, Patient2VisitList);
+            Patient patient2 = new Patient("PunePatient", Location.Pune, 11);
             hospital.AddPatient(patient2);
+            patient2.AddVisit(Patient2Visit);
 
-            Patient patient3 = new Patient("BangalorePatient", Location.Bangalore, 11, Patient3VisitList);
+            Patient patient3 = new Patient("BangalorePatient", Location.Bangalore, 11);
             hospital.AddPatient(patient3);
+            patient3.AddVisit(Patient3Visit);
 
             long totalPatients = hospital.PatientsWithinTheDateRange(FromDate, ToDate).Count();
             long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
@@ -110,15 +118,23 @@ namespace CMH_UnitTest
             DateTime FromDate = DateTime.Today.AddDays(-2);
             DateTime ToDate = DateTime.Today;
 
-            var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor1"), new Visit(DateTime.Today, "Doctor1"), new Visit(DateTime.Today.AddDays(-1), "Doctor1") };
+            Visit Patient1Visit1 = new Visit(DateTime.Today, "Doctor1");
+            Visit Patient1Visit2 = new Visit(DateTime.Today, "Doctor1");
+            Visit Patient1Visit3 = new Visit(DateTime.Today.AddDays(-1), "Doctor1");
+            Visit Patient2Visit1 = new Visit(DateTime.Today.AddDays(-2), "Doctor2");
+            Visit Patient2Visit2 = new Visit(DateTime.Today.AddDays(-1), "Doctor2");
 
-            var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-2), "Doctor2"), new Visit(DateTime.Today.AddDays(-1), "Doctor2") };
-
-            Patient patient1 = new Patient("PatientBangalore1", Location.Bangalore, 11, Patient1VisitList);
+            Patient patient1 = new Patient("PatientBangalore1", Location.Bangalore, 11);
             hospital.AddPatient(patient1);
+            patient1.AddVisit(Patient1Visit1);
+            patient1.AddVisit(Patient1Visit2);
+            patient1.AddVisit(Patient1Visit3);
 
-            Patient patient2 = new Patient("PatientBangalore2", Location.Bangalore, 21, Patient2VisitList);
+
+            Patient patient2 = new Patient("PatientBangalore2", Location.Bangalore, 21);
             hospital.AddPatient(patient2);
+            patient2.AddVisit(Patient2Visit1);
+            patient2.AddVisit(Patient2Visit2);
 
             long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
 
@@ -133,25 +149,34 @@ namespace CMH_UnitTest
         {
             int numberOfDays = 3;
 
-            var Patient1VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor1"), new Visit(DateTime.Today, "Doctor1"), new Visit(DateTime.Today.AddDays(-1), "Doctor1") };
+            Visit Patient1Visit1 = new Visit(DateTime.Today, "Doctor1");
+            Visit Patient1Visit2 = new Visit(DateTime.Today.AddDays(-1), "Doctor1");
 
-            var Patient2VisitList = new List<Visit>() { new Visit(DateTime.Today.AddDays(-2), "Doctor2"), new Visit(DateTime.Today.AddDays(-1), "Doctor2") };
+            Visit Patient2Visit1 = new Visit(DateTime.Today.AddDays(-2), "Doctor2");
+            Visit Patient2Visit2 = new Visit(DateTime.Today.AddDays(-1), "Doctor2");
 
-            var Patient3VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor3")};
+            Visit Patient3Visit = new Visit(DateTime.Today, "Doctor3");
 
-            var Patient4VisitList = new List<Visit>() { new Visit(DateTime.Today, "Doctor4")};
+            Visit Patient4Visit =  new Visit(DateTime.Today, "Doctor4");
 
-            Patient patient1 = new Patient("ChennaiPatient1", Location.Chennai, 11, Patient1VisitList);
+            Patient patient1 = new Patient("ChennaiPatient1", Location.Chennai, 11);
             hospital.AddPatient(patient1);
+            patient1.AddVisit(Patient1Visit1);
+            patient1.AddVisit(Patient1Visit2);
 
-            Patient patient2 = new Patient("BangalorePatient1", Location.Bangalore, 21, Patient2VisitList);
+            Patient patient2 = new Patient("BangalorePatient1", Location.Bangalore, 21);
             hospital.AddPatient(patient2);
+            patient2.AddVisit(Patient2Visit1);
+            patient2.AddVisit(Patient2Visit2);
 
-            Patient patient3 = new Patient("PunePatient1", Location.Pune, 34, Patient3VisitList);
+            Patient patient3 = new Patient("PunePatient1", Location.Pune, 34);
             hospital.AddPatient(patient3);
+            patient3.AddVisit(Patient3Visit);
 
-            Patient patient4 = new Patient("BangalorePatient2", Location.Bangalore, 55, Patient4VisitList);
+
+            Patient patient4 = new Patient("BangalorePatient2", Location.Bangalore, 55);
             hospital.AddPatient(patient4);
+            patient4.AddVisit(Patient4Visit);
 
             long localPatientWithinNDays = hospital.PatientsWhoVisitedHospitalInRecentDays(numberOfDays);
 
