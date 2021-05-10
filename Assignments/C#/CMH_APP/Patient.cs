@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CMH_APP
 {
@@ -9,14 +10,14 @@ namespace CMH_APP
         private string name;
         private Location location;
         private int age;
-        private List<Visit> visit;
+        private List<Visit> VisitList;
 
         public Patient(string name, Location location, int age)
         {
             this.name = name;
             this.location = location;
             this.age = age;
-            visit = new List<Visit>();
+            VisitList = new List<Visit>();
         }
 
         public string GetName()
@@ -35,13 +36,18 @@ namespace CMH_APP
         }
         public List<Visit> GetvisitingInfo()
         {
-            return visit;
+            return VisitList;
         }
 
         public void AddVisit(Visit v)
         {
-            visit.Add(v);
+            VisitList.Add(v);
         }
+
+        public Boolean HasPatientVisitedHospitalInNDays(DateTime startDate, DateTime endDate)
+        {
+            return VisitList.Any(v => v.GetVisitDate()>= startDate && v.GetVisitDate() <= endDate) ? true : false;
+        } 
     }
 
 }

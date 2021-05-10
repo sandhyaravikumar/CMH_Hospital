@@ -37,10 +37,7 @@ namespace CMH_UnitTest
             hospital.AddPatient(patient2);
             patient2.AddVisit(Patient2Visit);
 
-            long totalPatients = hospital.PatientsWithinTheDateRange(FromDate, ToDate).Count();
-            long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
-
-            double LocalPatientPercentage = (localPatient * 100) / totalPatients;
+            double LocalPatientPercentage = hospital.GetLocalPatientPercentage(FromDate,ToDate);
             double expectedPercentage = 100;
 
             Console.WriteLine($"{LocalPatientPercentage} % of patients are from Local and  No outside patients");
@@ -65,11 +62,8 @@ namespace CMH_UnitTest
             hospital.AddPatient(patient2);
             patient2.AddVisit(Patient2Visit);
 
-            long totalPatients = hospital.PatientsWithinTheDateRange(FromDate, ToDate).Count();
-            long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
-
-            double LocalPatientPercentage = (localPatient * 100) / totalPatients;
             double expectedPercentage = 0;
+            double LocalPatientPercentage = hospital.GetLocalPatientPercentage(FromDate,ToDate);
 
             Console.WriteLine("No records of Local Patients");
             Assert.AreEqual(expectedPercentage, LocalPatientPercentage, "Mismatch with patients data, Please check the data again");
@@ -97,16 +91,14 @@ namespace CMH_UnitTest
             hospital.AddPatient(patient3);
             patient3.AddVisit(Patient3Visit);
 
-            long totalPatients = hospital.PatientsWithinTheDateRange(FromDate, ToDate).Count();
             long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
             long OutPatients = hospital.GetOutsidePatientsCount(FromDate, ToDate);
 
-            double LocalPatientPercentage = (localPatient * 100) / totalPatients;
-            double OutsidePatientPercentage = (OutPatients * 100) / totalPatients;
+            double LocalPatientPercentage = hospital.GetLocalPatientPercentage(FromDate,ToDate);
             double expectedPercentage = 33;
 
 
-            Console.WriteLine($"Date: {FromDate.ToString("MM/dd/yyyy")} to {ToDate.ToString("MM/dd/yyyy")}\n Local Patients: {localPatient}% \n Outpatients: {OutsidePatientPercentage} %");
+            Console.WriteLine($"Date: {FromDate.ToString("MM/dd/yyyy")} to {ToDate.ToString("MM/dd/yyyy")}\n Number of Local Patients: {localPatient} \n Number of Out Patients: {OutPatients}");
             Assert.AreEqual(expectedPercentage, LocalPatientPercentage, "Mismatch with patients data, Please check the data again");
         }
 
@@ -153,30 +145,30 @@ namespace CMH_UnitTest
             Visit Patient1Visit2 = new Visit(DateTime.Today.AddDays(-1), "Doctor1");
 
             Visit Patient2Visit1 = new Visit(DateTime.Today.AddDays(-2), "Doctor2");
-            Visit Patient2Visit2 = new Visit(DateTime.Today.AddDays(-1), "Doctor2");
+            Visit Patient2Visit2 = new Visit(DateTime.Today.AddDays(-2), "Doctor2");
 
             Visit Patient3Visit = new Visit(DateTime.Today, "Doctor3");
 
             Visit Patient4Visit =  new Visit(DateTime.Today, "Doctor4");
 
             Patient patient1 = new Patient("ChennaiPatient1", Location.Chennai, 11);
-            hospital.AddPatient(patient1);
             patient1.AddVisit(Patient1Visit1);
             patient1.AddVisit(Patient1Visit2);
+            hospital.AddPatient(patient1);
 
             Patient patient2 = new Patient("BangalorePatient1", Location.Bangalore, 21);
-            hospital.AddPatient(patient2);
             patient2.AddVisit(Patient2Visit1);
             patient2.AddVisit(Patient2Visit2);
+            hospital.AddPatient(patient2);
 
             Patient patient3 = new Patient("PunePatient1", Location.Pune, 34);
-            hospital.AddPatient(patient3);
             patient3.AddVisit(Patient3Visit);
+            hospital.AddPatient(patient3);
 
 
             Patient patient4 = new Patient("BangalorePatient2", Location.Bangalore, 55);
-            hospital.AddPatient(patient4);
             patient4.AddVisit(Patient4Visit);
+            hospital.AddPatient(patient4);
 
             long localPatientWithinNDays = hospital.PatientsWhoVisitedHospitalInRecentDays(numberOfDays);
 

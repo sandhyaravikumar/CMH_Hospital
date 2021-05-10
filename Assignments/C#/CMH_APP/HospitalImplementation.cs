@@ -29,14 +29,6 @@ namespace CMH_APP
 
         public void AddPatient(Patient p) => this.patients.Add(p);
 
-        public List<Patient> PatientsWithinTheDateRange(DateTime startDate, DateTime endDate)
-        {
-            ValidateDates(startDate, endDate);
-            List<Patient> PatientsWithinTheDateRange = patients.Where(p => p.GetvisitingInfo()
-                                                               .Any(x => x.GetVisitDate() >= startDate && x.GetVisitDate() <= endDate))
-                                                               .ToList();
-            return PatientsWithinTheDateRange;
-        }
 
         private void ValidateDates(DateTime startDate, DateTime endDate)
         {
@@ -55,10 +47,20 @@ namespace CMH_APP
 
         public int GetLocalPatientsCount(DateTime startDate, DateTime endDate)
         {
-            List<Patient> listOfLocalPatients = PatientsWithinTheDateRange(startDate, endDate)
-                                                .Where(p => p.GetLocation().Equals(this.location))
-                                                .ToList();
-            return listOfLocalPatients.Count();
+            List<Patient> listOfLocalPatients = patients.Where(p => p.GetLocation().Equals(this.location))
+                                                        .ToList();
+
+            List<Patient> finalListOfLocalPatients = listOfLocalPatients.Where(p => p.HasPatientVisitedHospitalInNDays(startDate, endDate)).ToList();
+            
+            return finalListOfLocalPatients.Count();
+        }
+
+        public double GetLocalPatientPercentage(DateTime startDate, DateTime endDate)
+        {
+            long TotalPatientCount = patients.Count();
+            long LocalPatientCount = GetLocalPatientsCount(startDate,endDate);
+
+            return (100*LocalPatientCount)/TotalPatientCount;
         }
 
         public int GetOutsidePatientsCount(DateTime startDate, DateTime endDate)

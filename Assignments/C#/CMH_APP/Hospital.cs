@@ -6,7 +6,7 @@ namespace CMH_APP
     public interface IHospital
     {
         public void AddPatient(Patient p);
-        List<Patient> PatientsWithinTheDateRange(DateTime startDate, DateTime endDate);
+        int GetLocalPatientsCount(DateTime startDate, DateTime endDate);
     }
 
 }
