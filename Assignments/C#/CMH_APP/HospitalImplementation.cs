@@ -50,17 +50,18 @@ namespace CMH_APP
             List<Patient> listOfLocalPatients = patients.Where(p => p.GetLocation().Equals(this.location))
                                                         .ToList();
 
-            List<Patient> finalListOfLocalPatients = listOfLocalPatients.Where(p => p.HasPatientVisitedHospitalInNDays(startDate, endDate)).ToList();
-            
+            List<Patient> finalListOfLocalPatients = listOfLocalPatients.Where(p => p.HasPatientVisitedHospitalInNDays(startDate, endDate))
+                                                                        .ToList();
+
             return finalListOfLocalPatients.Count();
         }
 
         public double GetLocalPatientPercentage(DateTime startDate, DateTime endDate)
         {
             long TotalPatientCount = patients.Count();
-            long LocalPatientCount = GetLocalPatientsCount(startDate,endDate);
+            long LocalPatientCount = GetLocalPatientsCount(startDate, endDate);
 
-            return (100*LocalPatientCount)/TotalPatientCount;
+            return (100 * LocalPatientCount) / TotalPatientCount;
         }
 
         public int GetOutsidePatientsCount(DateTime startDate, DateTime endDate)

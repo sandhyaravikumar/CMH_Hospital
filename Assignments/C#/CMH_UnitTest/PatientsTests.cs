@@ -37,7 +37,7 @@ namespace CMH_UnitTest
             hospital.AddPatient(patient2);
             patient2.AddVisit(Patient2Visit);
 
-            double LocalPatientPercentage = hospital.GetLocalPatientPercentage(FromDate,ToDate);
+            double LocalPatientPercentage = hospital.GetLocalPatientPercentage(FromDate, ToDate);
             double expectedPercentage = 100;
 
             Console.WriteLine($"{LocalPatientPercentage} % of patients are from Local and  No outside patients");
@@ -63,7 +63,7 @@ namespace CMH_UnitTest
             patient2.AddVisit(Patient2Visit);
 
             double expectedPercentage = 0;
-            double LocalPatientPercentage = hospital.GetLocalPatientPercentage(FromDate,ToDate);
+            double LocalPatientPercentage = hospital.GetLocalPatientPercentage(FromDate, ToDate);
 
             Console.WriteLine("No records of Local Patients");
             Assert.AreEqual(expectedPercentage, LocalPatientPercentage, "Mismatch with patients data, Please check the data again");
@@ -75,9 +75,9 @@ namespace CMH_UnitTest
             DateTime FromDate = DateTime.Today.AddDays(-2);
             DateTime ToDate = DateTime.Today;
 
-            Visit Patient1Visit = new Visit(DateTime.Today, "Doctor1") ;
-            Visit Patient2Visit = new Visit(DateTime.Today.AddDays(-1), "Doctor2") ;
-            Visit Patient3Visit = new Visit(DateTime.Today.AddDays(-2), "Doctor3") ;
+            Visit Patient1Visit = new Visit(DateTime.Today, "Doctor1");
+            Visit Patient2Visit = new Visit(DateTime.Today.AddDays(-1), "Doctor2");
+            Visit Patient3Visit = new Visit(DateTime.Today.AddDays(-2), "Doctor3");
 
             Patient patient1 = new Patient("ChennaiPatient", Location.Chennai, 11);
             hospital.AddPatient(patient1);
@@ -94,7 +94,7 @@ namespace CMH_UnitTest
             long localPatient = hospital.GetLocalPatientsCount(FromDate, ToDate);
             long OutPatients = hospital.GetOutsidePatientsCount(FromDate, ToDate);
 
-            double LocalPatientPercentage = hospital.GetLocalPatientPercentage(FromDate,ToDate);
+            double LocalPatientPercentage = hospital.GetLocalPatientPercentage(FromDate, ToDate);
             double expectedPercentage = 33;
 
 
@@ -149,7 +149,7 @@ namespace CMH_UnitTest
 
             Visit Patient3Visit = new Visit(DateTime.Today, "Doctor3");
 
-            Visit Patient4Visit =  new Visit(DateTime.Today, "Doctor4");
+            Visit Patient4Visit = new Visit(DateTime.Today, "Doctor4");
 
             Patient patient1 = new Patient("ChennaiPatient1", Location.Chennai, 11);
             patient1.AddVisit(Patient1Visit1);

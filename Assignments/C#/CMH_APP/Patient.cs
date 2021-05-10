@@ -46,8 +46,8 @@ namespace CMH_APP
 
         public Boolean HasPatientVisitedHospitalInNDays(DateTime startDate, DateTime endDate)
         {
-            return VisitList.Any(v => v.GetVisitDate()>= startDate && v.GetVisitDate() <= endDate) ? true : false;
-        } 
+            return VisitList.Any(v => v.GetVisitDate() >= startDate && v.GetVisitDate() <= endDate) ? true : false;
+        }
     }
 
 }
